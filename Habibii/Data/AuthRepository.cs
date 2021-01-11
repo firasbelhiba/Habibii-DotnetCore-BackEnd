@@ -29,9 +29,9 @@ namespace Habibii.Data
 
             //this method will verify if our password matches or not 
             if (!VerifyPasswordHash(password , user.PasswordHash , user.PasswordSalt))
-                return null; 
+                return null;
 
-
+            return user;
 
         }
 

@@ -28,6 +28,16 @@ namespace Habibii.Controllers
             return Ok(values);
         }
 
+
+        [HttpPost("test")]
+        public async Task<IActionResult> test()
+        {
+
+
+            return StatusCode(202);
+        }
+
+
         // GET api/values/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValue(int id)
