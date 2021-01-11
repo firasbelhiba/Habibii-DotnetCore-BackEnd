@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Habibii.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Habibii.Data
 {
@@ -15,9 +16,39 @@ namespace Habibii.Data
             _context = context;
         }
 
-        public Task<User> Login(string username, string password)
+        public async Task<User> Login(string username, string password)
         {
-            throw new NotImplementedException();
+            //Because we are using FirstOrDefaultAsync it will either bring us a name that matches or if it doesn't find that so it will return null 
+            //if we use find and it doesn't find a name that matches it will return an exception that we don t need to show to the client
+
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+
+            //when we get a null , we will return in our controller a 401 unauthorized error 
+            if (user == null)
+                return null; 
+
+            //this method will verify if our password matches or not 
+            if (!VerifyPasswordHash(password , user.PasswordHash , user.PasswordSalt))
+                return null; 
+
+
+
+        }
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {  
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+
+                for ( int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != passwordHash[i]) return false; 
+              
+                }
+            }
+
+            return true; 
         }
 
         public async Task<User> Register(User user, string password)
@@ -44,9 +75,12 @@ namespace Habibii.Data
             }
         }
 
-        public Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string username)
         {
-            throw new NotImplementedException();
+            if (await _context.Users.AnyAsync(x => x.Username == username))
+                return true;
+
+            return false;
         }
     }
 }
