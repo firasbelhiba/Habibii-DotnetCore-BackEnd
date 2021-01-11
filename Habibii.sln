@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1209
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Habibii", "Habibii\Habibii.csproj", "{30EB4D5F-14A7-43EE-8A77-55D186DC77F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30EB4D5F-14A7-43EE-8A77-55D186DC77F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30EB4D5F-14A7-43EE-8A77-55D186DC77F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30EB4D5F-14A7-43EE-8A77-55D186DC77F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30EB4D5F-14A7-43EE-8A77-55D186DC77F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {41D6D6B5-EC6B-4DF6-8228-D4C6DCD77692}
+	EndGlobalSection
+EndGlobal
