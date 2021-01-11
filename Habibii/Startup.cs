@@ -31,7 +31,7 @@ namespace Habibii
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors();
             //We need to inform our inform our application about the IAuthRepository and AuthRepository
-            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped< IAuthRepository , AuthRepository >();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
