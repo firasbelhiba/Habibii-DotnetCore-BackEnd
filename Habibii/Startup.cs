@@ -36,6 +36,7 @@ namespace Habibii
             services.AddTransient<Seed>();
             //We need to inform our inform our application about the IAuthRepository and AuthRepository
             services.AddScoped< IAuthRepository , AuthRepository >();
+            services.AddScoped< ICrudRepository , CrudRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
