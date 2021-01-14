@@ -33,6 +33,7 @@ namespace Habibii
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))); 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors();
+            services.AddTransient<Seed>();
             //We need to inform our inform our application about the IAuthRepository and AuthRepository
             services.AddScoped< IAuthRepository , AuthRepository >();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -48,7 +49,7 @@ namespace Habibii
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env , Seed seeder)
         {
             if (env.IsDevelopment())
             {
@@ -60,6 +61,8 @@ namespace Habibii
             }
 
             //app.UseHttpsRedirection();
+            // This Seed method will be called to generate random users for developpement phase 
+            //seeder.SeedUsers();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseMvc();
