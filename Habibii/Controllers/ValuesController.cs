@@ -31,8 +31,8 @@ namespace Habibii.Controllers
             return Ok(values);
         }
 
-
-        [HttpPost("test")]
+        [AllowAnonymous]
+        [HttpGet("test")]
         public async Task<IActionResult> test()
         {
 
