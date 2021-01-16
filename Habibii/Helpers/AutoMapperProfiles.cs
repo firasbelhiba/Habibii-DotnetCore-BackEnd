@@ -31,6 +31,7 @@ namespace Habibii.Helpers
                    option.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                });
             CreateMap<Photo, PhotosForDetailedDto>();
+            CreateMap<UserForUpdateDto, User>();
 
         }
     }
