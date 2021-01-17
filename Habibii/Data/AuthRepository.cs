@@ -21,7 +21,7 @@ namespace Habibii.Data
             //Because we are using FirstOrDefaultAsync it will either bring us a name that matches or if it doesn't find that so it will return null 
             //if we use find and it doesn't find a name that matches it will return an exception that we don t need to show to the client
 
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Username == username);
 
             //when we get a null , we will return in our controller a 401 unauthorized error 
             if (user == null)

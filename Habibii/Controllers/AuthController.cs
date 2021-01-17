@@ -1,4 +1,5 @@
-﻿using Habibii.Data;
+﻿using AutoMapper;
+using Habibii.Data;
 using Habibii.Dtos;
 using Habibii.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -21,12 +22,14 @@ namespace Habibii.Controllers
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
 
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
 
         {
             _repo = repo;
             _config = config;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
@@ -85,9 +88,12 @@ namespace Habibii.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
+            var user = _mapper.Map<UserForListDto>(userFromRepo);
+
             return Ok(new
             {
-                token = tokenHandler.WriteToken(token)
+                token = tokenHandler.WriteToken(token),
+                user
             });
 
         }
