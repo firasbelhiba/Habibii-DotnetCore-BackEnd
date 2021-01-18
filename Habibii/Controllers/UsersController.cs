@@ -23,17 +23,18 @@ namespace Habibii.Controllers
         private readonly ICrudRepository _repo;
         private readonly IMapper _mapper;
 
-        public UsersController(ICrudRepository repo , IMapper mapper)
+        public UsersController(ICrudRepository repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await _repo.GetUsers();
+            var users = await _repo.GetUsers(userParams);
             var usersToreturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+            Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
             return Ok(usersToreturn);
         }
 
