@@ -35,7 +35,7 @@ namespace Habibii.Controllers
             return Ok(usersToreturn);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name ="GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _repo.GetUser(id);
@@ -60,6 +60,29 @@ namespace Habibii.Controllers
 
             throw new Exception($"Updating user {id} failed on save");
         }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            // check that the roots the user is accessing matches their user ID 
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+            // get the user from repo
+            var user = await _repo.GetUser(id);
+
+            _repo.Delete(user);
+
+
+            if (await _repo.SaveAll())
+                return Ok();
+
+            return BadRequest("Failed to delete the user");
+        }
+
+
 
     }
 }
