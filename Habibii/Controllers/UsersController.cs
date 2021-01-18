@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Habibii.Data;
 using Habibii.Dtos;
+using Habibii.Helpers;
 using Habibii.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Habibii.Controllers
-{
+{   // Any time that any of these methods get called we're going to make use og our logUserActivity ActionFilter which should update our lastactivity proprety for that particular user
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
